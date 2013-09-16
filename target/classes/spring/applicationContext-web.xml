@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+              http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd  
+              http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd              
+             http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+	<!-- 激活@Controller模式 -->
+	<mvc:annotation-driven />
+	<!-- 对包中的所有类进行扫描，以完成Bean创建和自动依赖注入的功能 需要更改 -->
+	<context:component-scan base-package="com.alibaba.qunar" />
+
+	<!-- 完成请求和注解POJO的映射 -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" >
+	<!--   <property name="messageConverters">
+	   <list>
+	     <bean class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
+	       <constructor-arg>
+	         <bean class="org.springframework.oxm.xstream.XStreamMarshaller">
+	           <property name="streamDriver">
+	             <bean class="com.thoughtworks.xstream.io.xml.DomDriver" />
+	           </property>
+	           
+	         </bean>
+	       
+	       </constructor-arg>
+	     
+	     </bean>
+	   
+	   </list>
+	  
+	  </property> -->
+	</bean>
+
+
+    <!--  设置velocity引擎 -->
+	<bean id="velocityConfigurer"
+		class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+		<property name="resourceLoaderPath">
+			<value>/</value>
+		</property>
+	</bean>
+	
+	
+	<!-- viewResolver 会顺序查找 -->
+
+	<!-- 对转向页面的路径解析。prefix：前缀， suffix：后缀 -->
+	<bean id="velocityViewResolver"
+		class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+		<property name="prefix">
+			<value>/WEB-INF/views/</value>
+		</property>
+		<property name="suffix">
+			<value>.vm</value>
+		</property>
+		<property name="contentType">
+			<value>text/html;charset=utf-8</value>
+		</property>
+	</bean>
+
+	<bean id="jspViewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix">
+			<value>/WEB-INF/views/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+	</bean>
+	
+<!--	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+	 <property name="mediaTypes">
+	   <map>
+	     <entry key="xml" value="application/xml" />
+	   
+	   </map>
+	 
+	 </property>
+
+ 	<property name="defaultViews">
+	   <list>
+	     <bean id="marshallingView" class="org.springframework.web.servlet.view.xml.MarshallingView">
+	       <property name="marshaller">
+	         <bean id="xStreamMarshaller" class="org.springframework.oxm.xstream.XStreamMarshaller">
+	           <property name="autodetectAnnotations" value="true"></property>
+	         
+	         </bean>
+	       
+	       </property>
+	       <property name="contentType" value="application/xml"></property>
+	     </bean>
+	   
+	   </list>
+	
+	</property>
+	
+	</bean>  -->
+    
+
+</beans>  

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<xsd:schema xmlns="http://sammor.javaeye.com/schema/tags"
+		xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+		xmlns:beans="http://www.springframework.org/schema/beans"
+		xmlns:tool="http://www.springframework.org/schema/tool"
+		targetNamespace="http://sammor.javaeye.com/schema/tags"
+		elementFormDefault="qualified"
+		attributeFormDefault="unqualified">
+    
+    
+    
+    <xsd:import namespace="http://www.springframework.org/schema/beans" />  
+    <xsd:element name="client">  
+        <xsd:annotation>  
+            <xsd:documentation>connect to mysql</xsd:documentation>  
+        </xsd:annotation>  
+        <xsd:complexType>  
+            <xsd:complexContent>  
+                <!-- 继承定义 从namespace="http://www.springframework.org/schema/beans" -->  
+                <xsd:extension base="beans:identifiedType">  
+                    <xsd:attribute name="datasourceip" type="xsd:string"  
+                        use="optional" default="127.0.0.1" />  
+                    <xsd:attribute name="username" type="xsd:string" use="required" />  
+                </xsd:extension>  
+            </xsd:complexContent>  
+        </xsd:complexType>  
+    </xsd:element>  
+</xsd:schema>  

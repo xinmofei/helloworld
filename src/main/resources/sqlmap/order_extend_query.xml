@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="orderExtend">
+	<select id="queryById" parameterType="java.lang.String"
+		resultType="com.alibaba.qunar.model.OrderExtend">
+		select
+		id as id,
+		order_id as orderId,
+		template_id as
+		templateId,
+		invoice_title as invoiceTitle,
+		addressee as addressee,
+		contact_number as contactNumber,
+		mailing_address as mailingAddress
+		from
+		order_extend
+		where id =#{id}
+	</select>
+
+	<insert id="batchSaveOrderExtend" parameterType="orderExtend"
+	 >
+		insert into order_extend(
+		order_id,
+		template_id,
+		invoice_title,
+		addressee,
+		contact_number,
+		mailing_address
+		)values
+		<foreach collection="list" item="orderExtend" index="index"
+			separator=",">
+			(#{orderExtend.orderId},
+			#{orderExtend.templateId},
+			#{orderExtend.invoiceTitle},
+			#{orderExtend.addressee},
+			#{orderExtend.contactNumber},
+			#{orderExtend.mailingAddress}
+			)
+		</foreach>
+		  <selectKey resultType="java.lang.Integer" keyProperty="id">
+           select @@IDENTITY as value
+         </selectKey>
+	</insert>
+</mapper>
